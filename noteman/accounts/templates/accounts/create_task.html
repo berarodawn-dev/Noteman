@@ -1,0 +1,30 @@
+{% extends "accounts/base.html" %}
+
+{% block content %}
+
+    <div class ='text-center'>
+        <h3>CREATE TASK</h3>
+    </div>
+    <div class = 'container form-box'>
+        <form action="{% url 'create_task' %}" method='POST'>
+
+            {% csrf_token %}
+            
+            <div class = 'mb-3'>
+            <div>
+                {{ form.content.label }}
+            </div>      
+            {{ form.content }}
+            {{ form.content.errors }}
+            </div>
+
+
+            <div class = 'text-center mb-3'>
+                <button class='btn btn-primary' type='submit'>
+                    save
+                </button>
+            </div>
+        </form>
+    </div>
+
+{% endblock content %}

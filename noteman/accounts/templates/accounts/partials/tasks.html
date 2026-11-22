@@ -1,0 +1,34 @@
+<div class="container mt-1 text-center">
+
+    <div class="mt-1"><h4>TASKS</h4></div>
+
+  {% if tasks %}
+
+    {% for task in tasks %}
+
+      <div class="card mt-2">
+          <div class="card-body">
+            <p class="card-text">{{ task.content }}</p>
+            <p class="class-text">{{ task.is_complete }}</p>
+            <div>
+              <form action="{% url 'delete_task' task.id %}" method="POST">
+                {% csrf_token %}
+                <div class = 'text-end'>
+                  <button type="submit" class="btn delete-btn btn-sm">
+                    DELETE
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+    {% endfor %}
+
+  {% else %}
+
+    <p> No tasks here... </p>
+
+  {% endif %}
+
+</div>

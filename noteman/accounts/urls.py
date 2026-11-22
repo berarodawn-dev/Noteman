@@ -10,6 +10,7 @@ urlpatterns = [
     path('logout/', views.logout, name='logout'),
     path('delete_note/<int:note_id>', views.delete_note, name='delete_note'),
     path('home/create_note', views.create_note, name='create_note'),
-    path('home/notes', views.notes, name='notes')
+    path('home/create_task', views.create_task, name="create_task"),
+    path('home/delete_task/<int:task_id>', views.delete_task, name="delete_task")
 ]
  

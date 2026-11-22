@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.contrib.auth import get_user_model
-from .models import Note
+from .models import Note, Task
 
 
 class SignupForm(UserCreationForm):
@@ -61,3 +61,15 @@ class NoteCreationForm(forms.ModelForm):
     class Meta:
         model = Note
         fields = ["title", "content"]
+
+
+class TaskCreationForm(forms.ModelForm):
+
+    def __init__(self,*args, **kwargs):
+            super().__init__(*args, **kwargs)
+            for field in self.fields.values():
+                field.widget.attrs["class"] = 'form-control'
+                        
+    class Meta:
+        model = Task
+        fields = ["content"]

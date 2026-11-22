@@ -16,7 +16,8 @@ class Note(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 class Task(models.Model):
-    content = models.CharField(max_length=300)
+    content = models.TextField(max_length=300, verbose_name="Task")
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    is_complete = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

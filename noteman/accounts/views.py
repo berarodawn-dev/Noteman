@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
-from .forms import LoginForm, SignupForm, NoteCreationForm
+from .forms import LoginForm, SignupForm, NoteCreationForm, TaskCreationForm
 from django.contrib.auth.decorators import login_required
-from .models import Note
+from django.http import HttpResponseNotAllowed
+from .models import Note, Task
 from django.shortcuts import get_object_or_404
 
 
@@ -53,24 +54,31 @@ def signup(request: HttpRequest) -> HttpResponse:
 def home(request: HttpRequest) -> HttpResponse:
     if request.user.is_authenticated:
         notes = Note.objects.filter(author=request.user)
-        return render(request, "accounts/home.html", {"user": request.user, 'notes' : notes})
+        tasks = Task.objects.filter(author=request.user)
+        return render(
+            request,
+            "accounts/home.html",
+            {"user": request.user, "notes": notes, "tasks": tasks},
+        )
 
 
 def logout(request: HttpRequest) -> HttpResponse:
     auth_logout(request)
     return redirect("login")
 
+
 @login_required
-def delete_note(request: HttpRequest, note_id : int) -> HttpResponse:
+def delete_note(request: HttpRequest, note_id: int) -> HttpResponse:
     if request.method == "POST":
         if request.user.is_authenticated:
             note = get_object_or_404(Note, id=note_id, author=request.user)
             note.delete()
 
-    return redirect('home')
+    return redirect("home")
+
 
 @login_required
-def create_note(request : HttpRequest) -> HttpResponse:
+def create_note(request: HttpRequest) -> HttpResponse:
     if request.user.is_authenticated:
         if request.method == "POST":
             form = NoteCreationForm(request.POST)
@@ -78,14 +86,32 @@ def create_note(request : HttpRequest) -> HttpResponse:
                 note = form.save(commit=False)
                 note.author = request.user
                 note.save()
-                return redirect('home')
+                return redirect("home")
         else:
             form = NoteCreationForm()
-    return render(request, 'accounts/create_note.html', {'form' : form})
+    return render(request, "accounts/create_note.html", {"form": form})
+
 
 @login_required
-def notes(request : HttpRequest) -> HttpResponse:
-    if request.user.is_authenticated:
-        if request.method == "GET":
-            notes = Note.objects.filter(author=request.user)
-            return render(request, 'accounts/partials/notes.html', {"user": request.user, 'notes' : notes})
+def create_task(request: HttpRequest) -> HttpResponse:
+    if request.method == "POST":
+        form = TaskCreationForm(request.POST)
+        if form.is_valid():
+            task = form.save(commit=False)
+            task.author = request.user
+            task.save()
+            return redirect("home")
+
+    else:
+        form = TaskCreationForm()
+
+    return render(request, "accounts/create_task.html", {"form": form})
+
+
+@login_required
+def delete_task(request: HttpRequest, task_id) -> HttpResponse:
+    if request.method == "POST":
+        (Task.objects.filter(author=request.user, id=task_id)).delete()
+        return redirect("home")
+    else:
+        return HttpResponseNotAllowed(["POST"])

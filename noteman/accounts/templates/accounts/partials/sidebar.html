@@ -5,9 +5,9 @@
 
   <button
     class="btn primary-btn"
-    hx-get="{% url 'notes' %}"
-    hx-target="#main-content"
-    hx-sawp="outerHTML"
+    hx-get="{% url 'home' %}"
+    hx-target="body"
+    hx-sawp="innerHTML"
     hx-trigger="click"
   >
     Home
@@ -20,6 +20,16 @@
     hx-trigger="click"
   >
     Add Note
+  </button>
+
+  <button
+    class="btn primary-btn"
+    hx-get="{% url 'create_task' %}"
+    hx-target="#main-content"
+    hx-sawp="innerHTML"
+    hx-trigger="click"
+  >
+    Add Task
   </button>
 
   <button
