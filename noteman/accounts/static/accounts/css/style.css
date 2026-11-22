@@ -1,0 +1,97 @@
+:root {
+    --green: #76b900;
+    --dark: #1a1a1a;
+    --gray: #2b2b2b;
+}
+
+h3 {
+    color: #1a1a1a;
+    font-weight: 1000;
+}
+
+main {
+    flex : 1;
+    padding : 20px;
+    overflow-y: auto;
+}
+
+.main-content {
+    flex: 1;
+    padding : 0
+}
+
+body {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    background-color: var(--dark);
+    color: #e6e6e6
+}
+
+.layout {
+    display : flex;
+    height: 100vh;
+}
+.btn-primary {
+  --bs-btn-bg: var(--dark);
+  --bs-btn-border-color: var(--green);
+  --bs-btn-hover-bg: var(--gray);
+  --bs-btn-hover-border-color: var(--green);
+  --bs-btn-color: #e6e6e6;
+  --bs-btn-hover-color: #e6e6e6;
+}
+
+.form-control {
+  background-color: var(--gray);
+  color: #e6e6e6;
+  border-color: #444;
+}
+
+.form-control:focus {
+  background-color: var(--gray);
+  color: #e6e6e6;
+  border-color: var(--green);
+  box-shadow: 0 0 0 0.2rem rgba(118, 185, 0, 0.25);
+}
+
+a {
+    color: var(--green)
+}
+
+.form-box {
+    max-width: 400px;
+}
+
+.card {
+    background-color: #444;
+}
+
+.card-body {
+    background-color: #444;
+}
+
+.card-title {
+    color: #e6e6e6;
+}
+
+.card-text {
+    color: #e6e6e6;
+}
+
+.delete-btn {
+    color: rgb(255, 255, 255);
+    background-color: rgb(0, 0, 0);
+}
+
+.side-bar {
+      width: 220px;              /* fixed width, left to right */
+      height: 100vh;             /* full screen height */
+      background: var(--green);       /* dark colour */
+      padding: 1rem;             /* space inside the bar */
+      box-sizing: border-box;    /* padding stays inside the 220px */
+      display: flex;             /* turn on flexbox */
+      flex-direction: column;    /* stack links top to bottom */
+      gap: 0.5rem;               /* space between links */
+}
+
+.sidebar a {
+    color: #e6e6e6;
+}

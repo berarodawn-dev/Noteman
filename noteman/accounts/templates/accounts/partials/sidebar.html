@@ -1,0 +1,33 @@
+<nav class="side-bar">
+  <header class = "text-center">
+    <h3>Hi {{ user.username }}</h3>
+  </header>
+
+  <button
+    class="btn primary-btn"
+    hx-get="{% url 'notes' %}"
+    hx-target="#main-content"
+    hx-sawp="outerHTML"
+    hx-trigger="click"
+  >
+    Home
+  </button>
+  <button
+    class="btn primary-btn"
+    hx-get="{% url 'create_note' %}"
+    hx-target="#main-content"
+    hx-sawp="innerHTML"
+    hx-trigger="click"
+  >
+    Add Note
+  </button>
+
+  <button
+    class="btn primary-btn"
+    hx-get="{% url 'logout' %}"
+    hx-target="body"
+    hx-push="true"
+  >
+    Log out
+  </button>
+</nav>

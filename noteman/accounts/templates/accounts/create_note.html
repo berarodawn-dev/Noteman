@@ -1,0 +1,33 @@
+{% extends "accounts/base.html" %}
+
+{% block content %}
+    <div class ='text-center'>
+        <h3>CREATE NOTE</h3>
+    </div>
+    <div class = 'container form-box'>
+        <form action="{% url 'create_note' %}" method='POST'>
+
+            {% csrf_token %}
+            
+            <div class = 'mb-3'>
+            <div>
+                {{ form.title.label }}
+            </div>      
+            {{ form.title }}
+            {{ form.title.errors }}
+            </div>
+           
+            <div class = 'mb-3'>
+            {{ form.content.label }}
+            {{ form.content }}
+            {{ form.content.errors }}
+            </div>
+
+            <div class = 'text-center mb-3'>
+                <button class='btn btn-primary' type='submit'>
+                    save
+                </button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

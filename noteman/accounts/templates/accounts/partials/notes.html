@@ -1,0 +1,35 @@
+<div class="container mt-1 text-center">
+  <div class="mt-1"><h4>NOTES</h4></div>
+
+  <div class="container mt-3">
+    {% if notes %}
+
+      {% for note in  notes %}
+
+        <div class="card mt-2">
+          <div class="card-body">
+            <h5 class="card-title">{{ note.title }}</h5>
+            <p class="card-text">{{ note.content }}</p>
+
+            <div>
+              <form action="{% url 'delete_note' note.id %}" method="POST">
+                {% csrf_token %}
+                <div class = 'text-end'>
+                  <button type="submit" class="btn delete-btn btn-sm">
+                    DELETE
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+      {% endfor %}
+
+    {% else %}
+
+      <h6>No notes yet...</h6>
+
+    {% endif %}
+  </div>
+</div>
